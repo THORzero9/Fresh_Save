@@ -12,7 +12,11 @@ sealed class Screen(val route: String, val title: String, val icon: ImageVector?
     object Stats : Screen("stats", "Stats", Icons.Filled.DateRange) // Updated Icon
     object Recipes : Screen("recipes", "Recipes", Icons.Filled.ThumbUp) // Updated Icon
     object Donate : Screen("donate", "Donate", Icons.Filled.Share) // Updated Icon
-    object AddItem : Screen("addItem", "Add New Item", icon = null)
+    object AddItem : Screen("addItem?itemId={itemId}", "Add Item", icon = null) { // Changed title for context
+        fun createRoute(itemId: String? = null): String {
+            return if (itemId != null) "addItem?itemId=$itemId" else "addItem"
+        }
+    }
 }
 
 val bottomNavigationItems = listOf(
